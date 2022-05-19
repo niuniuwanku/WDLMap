@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
+import {HttpClient} from "@angular/common/http";
+import {Map} from "./map";
+
 
 
 @Component({
@@ -11,7 +14,7 @@ export class MapComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -19,6 +22,9 @@ export class MapComponent implements OnInit {
   lat = 37.775
   long = -122.434
 
+  getConfig() {
+    return this.http.get<Map>("http://127.0.0.1:5000/heatmap");
+  }
   // @ts-ignore
   private map: google.maps.Map = null;
   // @ts-ignore
