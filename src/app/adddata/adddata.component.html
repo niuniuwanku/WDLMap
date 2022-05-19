@@ -1,0 +1,57 @@
+<div>
+  <button mat-button color="warn" [matMenuTriggerFor]="Crime">Alert</button>
+  <mat-menu class="outside" #Crime="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="ASSAULTSubtypeCrime" >ASSAULT</button>
+    <button mat-menu-item [matMenuTriggerFor]="HOMICIDESubtypeCrime">HOMICIDE</button>
+    <button mat-menu-item [matMenuTriggerFor]="THEFTSubtypeCrime">THEFT</button>
+    <button mat-menu-item [matMenuTriggerFor]="ROBBERYSubtypeCrime">ROBBERY</button>
+    <button mat-menu-item [matMenuTriggerFor]="VEHICLE_THEFTSubtypeCrime">VEHICLE THEFT</button>
+    <button mat-menu-item [matMenuTriggerFor]="VEHICLE_VANDALISMSubtypeCrime">VEHICLE VANDALISM</button>
+
+  </mat-menu>
+
+
+  <mat-menu  #ASSAULTSubtypeCrime="matMenu">
+    <span *ngFor="let signleASSAULT of ASSAULT">
+      <button mat-menu-item class="inside"  (click)="this.data.getPosition();this.data.getsubcrime('ASSAULT',signleASSAULT);this.data.senddata()" >{{signleASSAULT}}</button>
+    </span>
+  </mat-menu>
+
+  <mat-menu   #HOMICIDESubtypeCrime="matMenu">
+    <span  *ngFor="let signleHOMICIDE of HOMICIDE">
+      <button mat-menu-item class="inside" (click)="this.data.getPosition();this.data.getsubcrime('HOMICIDE',signleHOMICIDE);this.data.senddata()">{{signleHOMICIDE}}</button>
+    </span>
+  </mat-menu>
+
+  <mat-menu  #THEFTSubtypeCrime="matMenu">
+    <span *ngFor="let signleTHEFT of THEFT">
+      <button mat-menu-item class="inside" (click)="this.data.getPosition();this.data.getsubcrime('THEFT',signleTHEFT);this.data.senddata()">{{signleTHEFT}}</button>
+    </span>
+  </mat-menu>
+
+  <mat-menu  #ROBBERYSubtypeCrime="matMenu">
+    <span *ngFor="let signleROBBERY of ROBBERY">
+      <button mat-menu-item class="inside" (click)="this.data.getPosition();this.data.getsubcrime('ROBBERY',signleROBBERY);this.data.senddata()">{{signleROBBERY}}</button>
+    </span>
+  </mat-menu>
+
+  <mat-menu  #VEHICLE_THEFTSubtypeCrime="matMenu">
+    <span *ngFor="let signleVEHICLE_THEFT of VEHICLE_THEFT">
+      <button mat-menu-item class="inside" (click)="this.data.getPosition();this.data.getsubcrime('VEHICLE_THEFT',signleVEHICLE_THEFT);this.data.senddata()">{{signleVEHICLE_THEFT}}</button>
+    </span>
+  </mat-menu>
+
+  <mat-menu  #VEHICLE_VANDALISMSubtypeCrime="matMenu">
+    <span *ngFor="let signleVEHICLE_VANDALISM of VEHICLE_VANDALISM">
+      <button mat-menu-item class="inside" (click)="this.data.getPosition();this.data.getsubcrime('VEHICLE_VANDALISM',signleVEHICLE_VANDALISM);this.data.senddata()">{{signleVEHICLE_VANDALISM}}</button>
+    </span>
+  </mat-menu>
+
+
+
+
+</div>
+
+
+
+

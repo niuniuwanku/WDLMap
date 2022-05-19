@@ -13,8 +13,6 @@ import {map} from "rxjs";
 })
 export class MapComponent implements OnInit {
   Map: Map[] = [];
-  latnew: number = 0;
-  longnew: number = 0;
   public coords = []
 
 
@@ -27,7 +25,7 @@ export class MapComponent implements OnInit {
         for(let latlong of this.Map){
           this.coords.push()
           // @ts-ignore
-          this.coords.push(new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)))
+          this.coords.push({"location" :new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)),"weight": Number(latlong.Count)})
           // this.coords.push()
         }
         console.log(this.coords)
@@ -52,9 +50,10 @@ export class MapComponent implements OnInit {
     this.heatmap = new google.maps.visualization.HeatmapLayer({
       map: this.map,
       data: this.coords,
-      maxIntensity:10,
+      maxIntensity:300,
       radius: 9.5,
-      opacity:0.5
+      opacity:0.5,
+      dissipating: true
     });
   }
 }
