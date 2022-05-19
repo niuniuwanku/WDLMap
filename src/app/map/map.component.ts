@@ -15,7 +15,7 @@ export class MapComponent implements OnInit {
   Map: Map[] = [];
   latnew: number = 0;
   longnew: number = 0;
-  public coords: google.maps.LatLng[] = []
+  public coords = []
 
 
   constructor(private http: HttpClient) { }
@@ -25,7 +25,10 @@ export class MapComponent implements OnInit {
       error => console.log(error),
       () => {
         for(let latlong of this.Map){
+          this.coords.push()
+          // @ts-ignore
           this.coords.push(new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)))
+          // this.coords.push()
         }
         console.log(this.coords)
       }
@@ -48,7 +51,10 @@ export class MapComponent implements OnInit {
     this.map = mapInstance;
     this.heatmap = new google.maps.visualization.HeatmapLayer({
       map: this.map,
-      data: this.coords
+      data: this.coords,
+      maxIntensity:10,
+      radius: 9.5,
+      opacity:0.5
     });
   }
 }
