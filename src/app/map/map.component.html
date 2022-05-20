@@ -1,10 +1,21 @@
 
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
-<agm-map [latitude]="lat" [longitude]="long" (mapReady)="onMapLoad($event)">
-  <!--  <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>-->
-</agm-map>
+
 
 <div>
+  <agm-map [latitude]="lat" [longitude]="long" [streetViewControl] = true (mapReady)="onMapLoad($event)">
+    <!--  <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>-->
+  </agm-map>
+  <button mat-button color="primary" (click)="getdetailData('ASSAULT') ">ASSAULT</button>
+  <button mat-button color="primary" (click)="getdetailData('HOMICIDE') ">ASSAULT</button>
+  <button mat-button color="primary" (click)="getdetailData('THEFT') ">THEFT</button>
+  <button mat-button color="primary" (click)="getdetailData('ROBBERY') ">ROBBERY</button>
+  <button mat-button color="primary" (click)="getdetailData('VEHICLE THEFT') ">VEHICLE_THEFT</button>
+  <button mat-button color="primary" (click)="getdetailData('VEHICLE VANDALISM') ">VEHICLE_VANDALISM</button>
+
+
+
+
 
 </div>
