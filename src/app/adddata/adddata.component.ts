@@ -11,17 +11,8 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class AdddataComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
 
-  campaignOne: FormGroup;
-  constructor(public data: DataService) {
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
 
-    this.campaignOne = new FormGroup({
-      start: new FormControl(new Date(2010, 1, 1)),
-      end: new FormControl(new Date(2021, 12, 31)),
-    })
-    console.log(this.campaignOne.value)
+  constructor(public data: DataService) {
 
   }
 

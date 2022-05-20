@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Map} from "./map";
-import {BehaviorSubject, map, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable, range} from "rxjs";
+import {FormControl, FormGroup} from "@angular/forms";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 
 
@@ -15,12 +17,21 @@ export class MapComponent implements OnInit {
   Map: Map[] = [];
   // coords: google.maps.MVCArray;
   coords = new google.maps.MVCArray();
-  private _testSubject = new BehaviorSubject<string>('old data');
-  testObservable$: Observable<string> = this._testSubject.asObservable();
+  campaignOne: FormGroup;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    const today = new Date().getDate()
+    const month = new Date().getMonth();
+    const year = new Date().getFullYear();
+
+    this.campaignOne = new FormGroup({
+      start: new FormControl(new Date(2020, 12, 1)),
+      end: new FormControl(new Date(year, month, today)),
+    })
+  }
 
   ngOnInit(): void {
+
     this.getData().subscribe((data:Map[]) => {this.Map = data},
       error => console.log(error),
       () => {
@@ -60,6 +71,7 @@ export class MapComponent implements OnInit {
   }
 
   getdetailData(Crime: string) {
+    console.log()
     let queryParams = new HttpParams();
     const url = 'http://127.0.0.1:5000/heatmapbydate';
     queryParams = queryParams.append("Crimetype",Crime)
@@ -116,5 +128,33 @@ export class MapComponent implements OnInit {
 
 
 
+  }
+
+  private startdate = new Date();
+  private enddate = new Date();
+  addstart(type: string, event: MatDatepickerInputEvent<Date>) {
+    try {
+      // @ts-ignore
+      this.startdate = event.value
+      // this.startdate.push(event.value!.getFullYear())
+      // this.startdate.push(event.value!.getMonth())
+      // this.startdate.push(event.value!.getDate())
+    }
+    catch (e) {
+      console.log(e)
+    }
+    console.log(this.startdate)
+  }
+  addend(type: string, event: MatDatepickerInputEvent<Date>) {
+    try {
+      // @ts-ignore
+      this.enddate = event.value
+      // this.enddate.push(event.value!.getFullYear().valueOf())
+      // this.enddate.push(event.value!.getMonth().valueOf())
+      // this.enddate.push(event.value!.getDate().valueOf())
+    }
+    catch (e) {
+      console.log(e)
+    }
   }
 }
