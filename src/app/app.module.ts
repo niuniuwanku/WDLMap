@@ -16,6 +16,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ReactiveFormsModule} from "@angular/forms";
 import { MapbytypeComponent } from './mapbytype/mapbytype.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MapbytypeComponent } from './mapbytype/mapbytype.component';
     MatMenuModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatRadioModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

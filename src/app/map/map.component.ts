@@ -69,13 +69,37 @@ export class MapComponent implements OnInit {
   getData() {
     return this.http.get<Map[]>("http://127.0.0.1:5000/heatmap");
   }
+  getDatedate() {
+    let queryParams = new HttpParams();
+    const url = 'http://127.0.0.1:5000/date';
+    queryParams = queryParams.append("from_date",this.startdate.getFullYear().toString().substring(2,4)+'-'+(this.startdate.getMonth()+1).toString()+'-'+this.startdate.getDate().toString())
+    queryParams = queryParams.append("to_date",this.enddate.getFullYear().toString().substring(2,4)+'-'+(this.enddate.getMonth()+1).toString()+'-'+this.enddate.getDate().toString())
+    console.log(this.http.get(url,{params:queryParams}))
+    return this.http.get<Map[]>(url,{params:queryParams}).subscribe(
+      (data:Map[]) =>{
+        this.Map = []
+        this.Map = data},
+      error => console.log(error),
+      () => {
+        this.coords.clear()
+        for (let latlong of this.Map) {
+          // @ts-ignore
+          this.coords.push({"location" :new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)),"weight": Number(latlong.Count)})
+          this.heatmap.setData(this.coords)
+          //
+          //
+        }
+
+      }
+
+    );
+  }
 
   getdetailData(Crime: string) {
-    console.log()
     let queryParams = new HttpParams();
     const url = 'http://127.0.0.1:5000/heatmapbydate';
     queryParams = queryParams.append("Crimetype",Crime)
-    return this.http.get<Map[]>("http://127.0.0.1:5000/heatmapbydate",{params:queryParams}).subscribe(
+    return this.http.get<Map[]>(url,{params:queryParams}).subscribe(
       (data:Map[]) =>{
         this.Map = []
         this.Map = data},
@@ -130,7 +154,7 @@ export class MapComponent implements OnInit {
 
   }
 
-  private startdate = new Date();
+  private startdate = new Date(2020, 12, 1);
   private enddate = new Date();
   addstart(type: string, event: MatDatepickerInputEvent<Date>) {
     try {
