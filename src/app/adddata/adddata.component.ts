@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "./data.service";
 import {MatMenuTrigger} from "@angular/material/menu";
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {FormControl, FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-adddata',
   templateUrl: './adddata.component.html',
@@ -10,7 +11,19 @@ import {MatMenuTrigger} from "@angular/material/menu";
 export class AdddataComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
 
-  constructor(public data: DataService) { }
+  campaignOne: FormGroup;
+  constructor(public data: DataService) {
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+
+    this.campaignOne = new FormGroup({
+      start: new FormControl(new Date(2010, 1, 1)),
+      end: new FormControl(new Date(2021, 12, 31)),
+    })
+    console.log(this.campaignOne.value)
+
+  }
 
   ASSAULT = ['COLD WEAPON', 'FIREARM', 'OUTBURST', 'SUFFOCATION/STRANGULATION',
     'HITTING', 'IMMOBILIZATION', 'VERBAL INTIMIDATION',

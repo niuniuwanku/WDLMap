@@ -23,7 +23,6 @@ export class MapComponent implements OnInit {
       error => console.log(error),
       () => {
         for(let latlong of this.Map){
-          this.coords.push()
           // @ts-ignore
           this.coords.push({"location" :new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)),"weight": Number(latlong.Count)})
           // this.coords.push()

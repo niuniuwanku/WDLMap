@@ -11,16 +11,23 @@ import {DataService} from "./adddata/data.service";
 import {MatButtonModule} from "@angular/material/button";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatIconModule} from "@angular/material/icon";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {ReactiveFormsModule} from "@angular/forms";
+import { MapbytypeComponent } from './mapbytype/mapbytype.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    AdddataComponent
+    AdddataComponent,
+    MapbytypeComponent
   ],
   imports: [
     BrowserAnimationsModule,
     MatButtonModule,
+    MatNativeDateModule,
     MatMenuModule,
     MatIconModule,
     HttpClientModule,
@@ -30,7 +37,10 @@ import {MatIconModule} from "@angular/material/icon";
       libraries: ['visualization']
 
     }),
-    MatMenuModule
+    MatMenuModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
