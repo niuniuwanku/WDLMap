@@ -18,6 +18,10 @@ export class MapComponent implements OnInit {
   // coords: google.maps.MVCArray;
   coords = new google.maps.MVCArray();
   campaignOne: FormGroup;
+  lat = 9.934739
+  long = -84.087502
+  private startdate = new Date(2020, 12, 1);
+  private enddate = new Date();
 
   constructor(private http: HttpClient) {
     const today = new Date().getDate()
@@ -31,49 +35,50 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllData()
+  }
 
-    this.getData().subscribe((data:Map[]) => {this.Map = data},
+
+  getAllData() {
+    let queryParams = new HttpParams();
+    const url = 'http://127.0.0.1:5000/dataall';
+    queryParams = queryParams.append("from_date",this.startdate.getFullYear().toString().substring(2,4)+'-'+(this.startdate.getMonth()+1).toString()+'-'+this.startdate.getDate().toString())
+    console.log(queryParams)
+    queryParams = queryParams.append("to_date",this.enddate.getFullYear().toString().substring(2,4)+'-'+(this.enddate.getMonth()+1).toString()+'-'+this.enddate.getDate().toString())
+    return this.http.get<Map[]>(url,{params:queryParams}).subscribe(
+      (data:Map[]) =>{
+        this.Map = data},
       error => console.log(error),
       () => {
-        for(let latlong of this.Map){
+        this.coords.clear()
+        for (let latlong of this.Map) {
           // @ts-ignore
-          // this.coords.push({"location" :new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)),"weight": Number(latlong.Count)})
-          this.coords.push(new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)))
-          // this.coords.push()
+          this.coords.push({"location" :new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)),"weight": Number(latlong.Count)})
+          // this.heatmap.setData(this.coords)
+          //
+          //
         }
-        console.log(this.coords.getLength())
+
       }
-    )
+
+    );
+    // return this.http.get<Map[]>("http://127.0.0.1:5000/heatmap").subscribe((data:Map[]) => {this.Map = data},
+    //   error => console.log(error),
+    //   () => {
+    //     for(let latlong of this.Map){
+    //       this.coords.push(new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)))
+    //     }
+    //     console.log(this.coords.getLength())
+    //   }
+    // )
   }
-
-  lat = 9.934739
-  long = -84.087502
-
-  // getDatabydate() {
-  //   let queryParams = new HttpParams();
-  //   const url = 'http://127.0.0.1:5000/heatmapbydate';
-  //   queryParams = queryParams.append("Crimetype","aafbadf")
-  //   console.log("asdf")
-  //   return this.http.get(url,{params:queryParams, 'responseType':"text"}).subscribe(
-  //
-  //   )
-  //   // return this.http.get("http://127.0.0.1:5000/heatmapbydate");
-  //
-  //
-  //   // return this.http.get<UserInformation>(url,{params:queryParams});
-  // }
-
-
-
-
-  getData() {
-    return this.http.get<Map[]>("http://127.0.0.1:5000/heatmap");
-  }
-  getDatedate() {
+  getDatedate(Crime: string) {
     let queryParams = new HttpParams();
     const url = 'http://127.0.0.1:5000/date';
     queryParams = queryParams.append("from_date",this.startdate.getFullYear().toString().substring(2,4)+'-'+(this.startdate.getMonth()+1).toString()+'-'+this.startdate.getDate().toString())
     queryParams = queryParams.append("to_date",this.enddate.getFullYear().toString().substring(2,4)+'-'+(this.enddate.getMonth()+1).toString()+'-'+this.enddate.getDate().toString())
+    queryParams = queryParams.append("Crimetype",Crime)
+
     console.log(this.http.get(url,{params:queryParams}))
     return this.http.get<Map[]>(url,{params:queryParams}).subscribe(
       (data:Map[]) =>{
@@ -154,8 +159,7 @@ export class MapComponent implements OnInit {
 
   }
 
-  private startdate = new Date(2020, 12, 1);
-  private enddate = new Date();
+
   addstart(type: string, event: MatDatepickerInputEvent<Date>) {
     try {
       // @ts-ignore
@@ -180,5 +184,6 @@ export class MapComponent implements OnInit {
     catch (e) {
       console.log(e)
     }
+    // console.log(this.enddate)
   }
 }

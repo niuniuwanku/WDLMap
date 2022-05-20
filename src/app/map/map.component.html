@@ -6,12 +6,12 @@
   <agm-map [latitude]="lat" [longitude]="long" [streetViewControl] = true (mapReady)="onMapLoad($event)">
     <!--  <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>-->
   </agm-map>
-  <button mat-button color="primary" (click)="getdetailData('ASSAULT') ">ASSAULT</button>
-  <button mat-button color="primary" (click)="getdetailData('HOMICIDE') ">ASSAULT</button>
-  <button mat-button color="primary" (click)="getdetailData('THEFT') ">THEFT</button>
-  <button mat-button color="primary" (click)="getdetailData('ROBBERY') ">ROBBERY</button>
-  <button mat-button color="primary" (click)="getdetailData('VEHICLE THEFT') ">VEHICLE THEFT</button>
-  <button mat-button color="primary" (click)="getdetailData('VEHICLE VANDALISM') ">VEHICLE VANDALISM</button>
+  <button mat-button color="primary" (click)="getDatedate('ASSAULT') ">ASSAULT</button>
+  <button mat-button color="primary" (click)="getDatedate('HOMICIDE') ">ASSAULT</button>
+  <button mat-button color="primary" (click)="getDatedate('THEFT') ">THEFT</button>
+  <button mat-button color="primary" (click)="getDatedate('ROBBERY') ">ROBBERY</button>
+  <button mat-button color="primary" (click)="getDatedate('VEHICLE THEFT') ">VEHICLE THEFT</button>
+  <button mat-button color="primary" (click)="getDatedate('VEHICLE VANDALISM') ">VEHICLE VANDALISM</button>
 
 </div>
 
@@ -21,11 +21,10 @@
     [formGroup]="campaignOne"
     [rangePicker]="picker">
     <input matStartDate placeholder="Start date" formControlName="start" (dateInput)="addstart('Start',$event)">
-    <input matEndDate placeholder="End date" formControlName="end" (dateInput)="addend('End',$event);getDatedate()" >
+    <input matEndDate placeholder="End date" formControlName="end" (dateInput)="addend('End',$event);getAllData()" >
   </mat-date-range-input >
   <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>
 </mat-form-field>
 
-<button (click)="getDatedate()"> ty</button>
