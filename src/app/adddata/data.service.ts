@@ -13,10 +13,23 @@ export class DataService implements OnInit{
   Crimetype: string = ""
   Subcrimetype: string = ""
   Date = new Date()
+  marker = []
 
   ngOnInit() {
   }
 
+  addmarker(){
+
+    this.marker.push({
+      // @ts-ignore
+      lat:   this.lat,
+      // @ts-ignore
+      lng: this.long,
+      // @ts-ignore
+      label: this.Crimetype
+    });
+    console.log(this.marker)
+  }
 
   getPosition() {
     navigator.geolocation.getCurrentPosition(resp => {
@@ -31,6 +44,7 @@ export class DataService implements OnInit{
     this.Subcrimetype = subcrime
   }
   senddata() {
+
     let queryParams = new HttpParams();
     const url = 'http://127.0.0.1:5000/location';
     queryParams = queryParams.append("lat",this.lat)

@@ -5,6 +5,7 @@ import {Map} from "./map";
 import {BehaviorSubject, map, Observable, range} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {DataService} from "../adddata/data.service";
 
 
 
@@ -16,7 +17,7 @@ import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 export class MapComponent implements OnInit {
   url: string = "http://127.0.0.1:5000/"
   // url: string = "http://130.211.113.42:5000/"
-
+  markers: any = []
   Map: Map[] = [];
   // coords: google.maps.MVCArray;
   coords = new google.maps.MVCArray();
@@ -26,7 +27,7 @@ export class MapComponent implements OnInit {
   private startdate = new Date(2020, 12, 1);
   private enddate = new Date();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private dataservice:DataService ) {
     const today = new Date().getDate()
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
@@ -35,6 +36,7 @@ export class MapComponent implements OnInit {
       start: new FormControl(new Date(2020, 12, 1)),
       end: new FormControl(new Date(year, month, today)),
     })
+
   }
 
   ngOnInit(): void {
@@ -190,5 +192,11 @@ export class MapComponent implements OnInit {
       console.log(e)
     }
     // console.log(this.enddate)
+  }
+
+  showmaker() {
+
+    this.markers = this.dataservice.marker
+    console.log(this.markers)
   }
 }
