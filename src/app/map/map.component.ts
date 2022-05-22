@@ -50,7 +50,6 @@ export class MapComponent implements OnInit {
         this.Map = data},
       error => console.log(error),
       () => {
-        this.coords.clear()
         for (let latlong of this.Map) {
           // @ts-ignore
           this.coords.push({"location" :new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)),"weight": Number(latlong.Count)})
