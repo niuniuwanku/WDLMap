@@ -40,7 +40,15 @@ export class AdddataComponent implements OnInit {
 
   VEHICLE_VANDALISM = ['VEHICLE VANDALISM']
 
-
+  // lat!: number
+  // long!:number
+  // getposition() {
+  //   navigator.geolocation.getCurrentPosition(resp => {
+  //     this.lat = resp.coords.latitude
+  //     this.long = resp.coords.longitude
+  //   })
+  //   console.log(this.lat,this.long)
+  // }
 
   ngOnInit(): void {
   }
