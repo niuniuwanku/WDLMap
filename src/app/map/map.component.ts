@@ -50,6 +50,7 @@ export class MapComponent implements OnInit {
         this.Map = data},
       error => console.log(error),
       () => {
+        this.coords.clear()
         for (let latlong of this.Map) {
           // @ts-ignore
           this.coords.push({"location" :new google.maps.LatLng(Number(latlong.lat),Number(latlong.long)),"weight": Number(latlong.Count)})
@@ -59,7 +60,6 @@ export class MapComponent implements OnInit {
         }
 
       }
-
 
     );
     // return this.http.get<Map[]>("http://127.0.0.1:5000/heatmap").subscribe((data:Map[]) => {this.Map = data},
