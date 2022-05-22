@@ -17,13 +17,15 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {ReactiveFormsModule} from "@angular/forms";
 import { MapbytypeComponent } from './mapbytype/mapbytype.component';
 import {MatRadioModule} from "@angular/material/radio";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     AdddataComponent,
-    MapbytypeComponent
+    MapbytypeComponent,
+    FooterComponent
   ],
   imports: [
     BrowserAnimationsModule,
