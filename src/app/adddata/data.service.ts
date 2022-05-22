@@ -35,11 +35,12 @@ export class DataService implements OnInit{
     const url = 'http://127.0.0.1:5000/location';
     queryParams = queryParams.append("lat",this.lat)
     queryParams = queryParams.append("long",this.long)
-    queryParams = queryParams.append("Date",this.Date.toString())
+
+    queryParams = queryParams.append("Date",this.Date.getFullYear().toString().substring(2,4)+'-'+(this.Date.getMonth()+1).toString()+'-'+this.Date.getDate().toString())
     queryParams = queryParams.append("Crimetype",this.Crimetype)
     queryParams = queryParams.append("Subcrimetype",this.Subcrimetype)
 
-    return this.http.get(url,{params:queryParams})
+    return this.http.get(url,{params:queryParams}).subscribe()
     // var request = new XMLHttpRequest();
     // request.open('post', ' http://127.0.0.1:5000/location',true);
     // request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

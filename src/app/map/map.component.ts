@@ -14,6 +14,9 @@ import {MatDatepickerInputEvent} from "@angular/material/datepicker";
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  url: string = "http://127.0.0.1:5000/"
+  // url: string = "http://130.211.113.42:5000/"
+
   Map: Map[] = [];
   // coords: google.maps.MVCArray;
   coords = new google.maps.MVCArray();
@@ -41,7 +44,7 @@ export class MapComponent implements OnInit {
 
   getAllData() {
     let queryParams = new HttpParams();
-    const url = 'http://130.211.113.42:5000/dataall';
+    const url =  this.url+'dataall';
     queryParams = queryParams.append("from_date",this.startdate.getFullYear().toString().substring(2,4)+'-'+(this.startdate.getMonth()+1).toString()+'-'+this.startdate.getDate().toString())
     console.log(queryParams)
     queryParams = queryParams.append("to_date",this.enddate.getFullYear().toString().substring(2,4)+'-'+(this.enddate.getMonth()+1).toString()+'-'+this.enddate.getDate().toString())
@@ -74,7 +77,8 @@ export class MapComponent implements OnInit {
   }
   getDatedate(Crime: string) {
     let queryParams = new HttpParams();
-    const url = 'http://130.211.113.42:5000/date';
+
+    const url = this.url+'date';
     queryParams = queryParams.append("from_date",this.startdate.getFullYear().toString().substring(2,4)+'-'+(this.startdate.getMonth()+1).toString()+'-'+this.startdate.getDate().toString())
     queryParams = queryParams.append("to_date",this.enddate.getFullYear().toString().substring(2,4)+'-'+(this.enddate.getMonth()+1).toString()+'-'+this.enddate.getDate().toString())
     queryParams = queryParams.append("Crimetype",Crime)
@@ -102,7 +106,8 @@ export class MapComponent implements OnInit {
 
   getdetailData(Crime: string) {
     let queryParams = new HttpParams();
-    const url = 'http://130.211.113.42:5000/heatmapbydate';
+    const url = this.url+'heatmapbydate';
+
     queryParams = queryParams.append("Crimetype",Crime)
     return this.http.get<Map[]>(url,{params:queryParams}).subscribe(
       (data:Map[]) =>{
